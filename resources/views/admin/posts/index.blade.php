@@ -18,6 +18,9 @@
                             <th scope="col">Titolo</th>
                             <th scope="col">Contenuto</th>
                             <th scope="col">Immagine</th>
+                            <th scope="col">Argomento</th>
+                            <th scope="col">Autore</th>
+                            <th scope="col">Tags</th>
                             <th scope="col">Azioni</th>
                         </tr>
                     </thead>
@@ -42,6 +45,11 @@
                                     @else
                                         -
                                     @endif
+                                </td>
+                                <td>
+                                    @foreach ($post->tags as $tag)
+                                        <span class="badge badge-pill badge-{{ $tag->color }}">{{ $tag->name }}</span>
+                                    @endforeach
                                 </td>
                                 <td><a class="btn btn-primary"
                                         href="{{ route('admin.posts.show', $post->id) }}">Dettaglio</a></td>

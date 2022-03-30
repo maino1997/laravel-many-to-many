@@ -90,7 +90,8 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
-        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+        $post_tags_ids = $post->tags->pluck('id')->toArray();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags', 'post_tags_ids'));
     }
 
     /**
@@ -112,6 +113,8 @@ class PostController extends Controller
         $data = $request->all();
 
         $post->update($data);
+        if (array_key_exists('tags', $data)) $post->tags()->attach($data['tags']);
+
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
@@ -124,6 +127,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tags()->detach();
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('message', "$post->title eliminato con successo")->with('type', "success");
