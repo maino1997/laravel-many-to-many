@@ -60,6 +60,15 @@
         <img src="{{ $comic->thumb ?? 'http://www.asdalcione.it/wp-content/uploads/2016/08/jk-placeholder-image-1.jpg' }}"
             alt="placeholder" id="image-src" width="200" class="img-fluid">
     </div>
+    @foreach ($tags as $tag)
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}"
+                name="tags[]" @if (in_array($tag->id, old('tags', []))) checked @endif>
+            <label class="form-check-label" for="tag-{{ $tag->id }}">
+                {{ $tag->name }}
+            </label>
+        </div>
+    @endforeach
     <button type="submit" class="btn btn-primary">Crea</button>
     </form>
 

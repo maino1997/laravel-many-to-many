@@ -7,7 +7,7 @@
                 <h2>{{ $post->title }}</h2>
                 <img src="{{ $post->image }}" alt="image">
                 <p>Contenuto: {{ $post->content }}</p>
-                <h4>Categoria: {{ $post->category->name }}</h4>
+                <h4>Categoria: {{ $post->category->name ?? '-' }}</h4>
                 <h4>Autore: {{ $post->user->name }}</h4>
             </div>
             <a class="btn btn-warning mr-3" href="{{ route('admin.posts.edit', $post->id) }}">Modifica</a>

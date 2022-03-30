@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -34,7 +35,8 @@ class PostController extends Controller
     {
         $post = new Post();
         $categories = Category::all();
-        return view('admin.posts.create', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -50,7 +52,8 @@ class PostController extends Controller
             'title' => ['required', 'unique:posts', 'string', 'min:3', 'max:50'],
             'image' => ['string', 'min:10'],
             'content' => ['required', 'string', 'min:10'],
-            'category_id' => ['nullable', 'exists:categories,id']
+            'category_id' => ['nullable', 'exists:categories,id'],
+            'tags' => ['nullable', 'exists:tags,id']
         ]);
 
         $data = $request->all();
@@ -60,6 +63,8 @@ class PostController extends Controller
         $post->fill($data);
         $post->user_id = Auth::id();
         $post->save();
+
+        if (array_key_exists('tags', $data)) $post->tags()->attach($data['tags']);
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
@@ -84,7 +89,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -99,7 +105,8 @@ class PostController extends Controller
         $request->validate([
             'title' => ['required', Rule::unique('posts')->ignore($post->id), 'string', 'min:3', 'max:50'],
             'image' => ['string', 'min:10'],
-            'content' => ['required', 'string', 'min:10']
+            'content' => ['required', 'string', 'min:10'],
+            'tags' => ['nullable', 'exists:tags,id']
         ]);
 
         $data = $request->all();
