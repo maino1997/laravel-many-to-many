@@ -24,6 +24,7 @@ Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->
     Route::get('/posts/order', 'PostController@order')->name('posts.order');
     Route::resource('posts', 'PostController');
     Route::resource('categories', 'CategoryController');
+    Route::resource('tags', 'TagController');
 });
 
 Route::get('{any?}', function () {

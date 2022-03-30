@@ -2,7 +2,7 @@
 
 @section('content')
     @include('includes.alert')
-    <div class="container">
+    <div class="container text-center">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <header>
@@ -48,7 +48,10 @@
                                 </td>
                                 <td>
                                     @foreach ($post->tags as $tag)
-                                        <span class="badge badge-pill badge-{{ $tag->color }}">{{ $tag->name }}</span>
+                                        <a href="{{ route('admin.tags.show', $tag->id) }}">
+                                            <span
+                                                class="badge badge-pill badge-{{ $tag->color }}">{{ $tag->name }}</span>
+                                        </a>
                                     @endforeach
                                 </td>
                                 <td><a class="btn btn-primary"
