@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $fillable = [
+        'title',
+        'image',
+        'content',
+        'category'
+    ];
     public function category()
     {
         return $this->belongsTo('App\Models\Category');
@@ -20,11 +26,4 @@ class Post extends Model
     {
         return $this->belongsToMany('App\Models\Tag');
     }
-
-    protected $fillable = [
-        'title',
-        'image',
-        'content',
-        'category'
-    ];
 }

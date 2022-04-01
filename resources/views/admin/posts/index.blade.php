@@ -30,7 +30,9 @@
                                 <th scope="row">{{ $post->id }}</th>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->content }}</td>
-                                <td><img src="{{ $post->image }}" alt="{{ $post->image }}"></td>
+                                <td><img src="{{ asset("storage/$post->image") }}" alt="{{ $post->image }}" width='100'
+                                        class='img-fluid'>
+                                </td>
                                 <td>
                                     @if ($post->category)
                                         <span

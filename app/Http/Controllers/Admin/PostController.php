@@ -49,9 +49,10 @@ class PostController extends Controller
      */
     public function store(Request $request, Post $post)
     {
+
         $request->validate([
             'title' => ['required', 'unique:posts', 'string', 'min:3', 'max:50'],
-            'image' => ['nullable', 'image'],
+            'image' => ['nullable', 'file'],
             'content' => ['required', 'string', 'min:10'],
             'category_id' => ['nullable', 'exists:categories,id'],
             'tags' => ['nullable', 'exists:tags,id']

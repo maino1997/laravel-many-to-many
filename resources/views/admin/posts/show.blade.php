@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>{{ $post->title }}</h2>
-                <img src="{{ $post->image }}" alt="image">
+                <img src=" {{ asset("storage/$post->image") }} " alt="image" width='200' class="img-fluid">
                 <p>Contenuto: {{ $post->content }}</p>
                 <h4>Categoria: {{ $post->category->name ?? '-' }}</h4>
                 <h4>Autore: {{ $post->user->name }}</h4>
