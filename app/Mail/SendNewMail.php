@@ -28,6 +28,6 @@ class SendNewMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.posts.published');
+        return $this->view('mails.posts.published', ['post' => $this->post]);
     }
 }
