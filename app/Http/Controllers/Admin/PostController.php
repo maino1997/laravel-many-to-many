@@ -9,6 +9,8 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendNewMail;
 use Illuminate\Validation\Rule;
 
 
