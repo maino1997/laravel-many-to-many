@@ -112,12 +112,22 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => ['required', Rule::unique('posts')->ignore($post->id), 'string', 'min:3', 'max:50'],
-            'image' => ['nullable', 'image'],
+            'image' => ['nullable', 'file'],
             'content' => ['required', 'string', 'min:10'],
             'tags' => ['nullable', 'exists:tags,id']
         ]);
 
         $data = $request->all();
+        if (array_key_exists('image', $data)) {
+            //Controllo se il post ha già un'immagine, se si cancello quella/e precedenti e inserisco la nuova immagine
+            if ($post->image) {
+                Storage::delete($post->image);
+            }
+            //Se mi arriva la chiave salva nella cartella post_images il campo $data['image'] e crea l'url dell'immagine
+            $image_url = Storage::put('post_images', $data['image']);
+            //Riassegno image in $data (che mi arriva in $request), e gli assegno l'url fatto prima che è una
+            $data['image'] = $image_url;
+        }
 
         $post->update($data);
         if (array_key_exists('tags', $data)) $post->tags()->sync($data['tags']);
@@ -134,7 +144,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        //Se elimino il post elimino la relazione con i tags
         $post->tags()->detach();
+        //Se elimino il post cancello tutte le immagini relative al post
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('message', "$post->title eliminato con successo")->with('type', "success");
