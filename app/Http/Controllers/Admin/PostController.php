@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 
@@ -50,7 +51,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => ['required', 'unique:posts', 'string', 'min:3', 'max:50'],
-            'image' => ['string', 'min:10'],
+            'image' => ['nullable', 'image'],
             'content' => ['required', 'string', 'min:10'],
             'category_id' => ['nullable', 'exists:categories,id'],
             'tags' => ['nullable', 'exists:tags,id']
@@ -59,7 +60,12 @@ class PostController extends Controller
         $data = $request->all();
 
         $post = new Post();
-
+        if (array_key_exists('image', $data)) {
+            //Se mi arriva la chiave salva nella cartella post_images il campo $data['image'] e crea l'url dell'immagine
+            $image_url = Storage::put('post_images', $data['image']);
+            //Riassegno image in $data (che mi arriva in $request), e gli assegno l'url fatto prima che è una
+            $data['image'] = $image_url;
+        }
         $post->fill($data);
         $post->user_id = Auth::id();
         $post->save();
@@ -105,7 +111,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => ['required', Rule::unique('posts')->ignore($post->id), 'string', 'min:3', 'max:50'],
-            'image' => ['string', 'min:10'],
+            'image' => ['nullable', 'image'],
             'content' => ['required', 'string', 'min:10'],
             'tags' => ['nullable', 'exists:tags,id']
         ]);
