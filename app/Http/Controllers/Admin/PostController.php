@@ -73,7 +73,13 @@ class PostController extends Controller
         $post->user_id = Auth::id();
         $post->save();
 
+        //Con attach() creo effettivamente la relazione se mi arriva la chiave con i tags
         if (array_key_exists('tags', $data)) $post->tags()->attach($data['tags']);
+
+        //Mando la mail di conferma di creazione della mail
+        $reciever = Auth::user()->email;
+
+        Mail::to('new@new.com')->send(new SendNewMail($post));
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
