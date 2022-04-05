@@ -87,6 +87,7 @@ class PostController extends Controller
         //Mando la mail di conferma di creazione della mail
         $reciever = Auth::user()->email;
 
+        //Nelle parentesi del to() dovrei mettere $reciever
         Mail::to('new@new.com')->send(new SendNewMail($post));
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
