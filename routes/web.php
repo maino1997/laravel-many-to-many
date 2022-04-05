@@ -22,6 +22,7 @@ Auth::routes();
 Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/posts/order', 'PostController@order')->name('posts.order');
+    Route::patch('/posts/{post}/toggle', 'PostController@toggle')->name('posts.toggle');
     Route::resource('posts', 'PostController');
     Route::resource('categories', 'CategoryController');
     Route::resource('tags', 'TagController');

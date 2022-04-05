@@ -21,6 +21,7 @@
                             <th scope="col">Argomento</th>
                             <th scope="col">Autore</th>
                             <th scope="col">Tags</th>
+                            <th scope="col">Stato</th>
                             <th scope="col">Azioni</th>
                         </tr>
                     </thead>
@@ -55,6 +56,18 @@
                                                 class="badge badge-pill badge-{{ $tag->color }}">{{ $tag->name }}</span>
                                         </a>
                                     @endforeach
+                                </td>
+                                <td>
+                                    <form action="{{ route('admin.posts.toggle', $post->id) }}" method="POST">
+                                        @method(
+                                        'PATCH'
+                                        )
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline">
+                                            <span
+                                                class="fa-solid text-{{ $post->is_published ? 'success' : 'danger' }} {{ $post->is_published ? 'fa-toggle-on' : 'fa-toggle-off' }}">{{ $post->is_published ? 'pubblicato' : 'non pubblicato' }}</span>
+                                        </button>
+                                    </form>
                                 </td>
                                 <td><a class="btn btn-primary"
                                         href="{{ route('admin.posts.show', $post->id) }}">Dettaglio</a></td>

@@ -182,4 +182,10 @@ class PostController extends Controller
 
         return view('admin.posts.order', compact('posts', 'categories'));
     }
+    public function toggle(Post $post)
+    {
+        $post->is_published = !$post->is_published;
+        $post->save();
+        return redirect()->route('admin.posts.index')->with('message', "$post->title pubblicato con successo")->with('type', "success");
+    }
 }
