@@ -70,6 +70,11 @@ class PostController extends Controller
             //Riassegno image in $data (che mi arriva in $request), e gli assegno l'url fatto prima che è una
             $data['image'] = $image_url;
         }
+        if (array_key_exists('is_published', $data)) {
+            $post->is_published = 1;
+        } else {
+            $post->is_published = 0;
+        }
         $post->fill($data);
         $post->user_id = Auth::id();
         $post->slug = Str::slug($post->title, '-');
@@ -138,6 +143,9 @@ class PostController extends Controller
             $image_url = Storage::put('post_images', $data['image']);
             //Riassegno image in $data (che mi arriva in $request), e gli assegno l'url fatto prima che è una
             $data['image'] = $image_url;
+        }
+        if (array_key_exists('is_published', $data)) {
+            $post->is_published = true;
         }
         $post->slug = Str::slug($post->title, '-');
 

@@ -56,6 +56,15 @@
             @endforeach
         </select>
     </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="1" id="ispub" name="is_published"
+            @if (old('is_published', $post->is_published)) checked @endif>
+        <label class="form-check-label" for="ispub">
+            Pubblicato
+        </label>
+        <div>
+        </div>
+    </div>
     <div class="form-group">
         <img src="{{ $comic->thumb ?? 'http://www.asdalcione.it/wp-content/uploads/2016/08/jk-placeholder-image-1.jpg' }}"
             alt="placeholder" id="image-src" width="200" class="img-fluid">
