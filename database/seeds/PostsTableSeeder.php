@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Models\Post;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 
 class PostsTableSeeder extends Seeder
@@ -25,6 +26,7 @@ class PostsTableSeeder extends Seeder
             $post->user_id = 1;
             $post->content = $faker->sentence();
             $post->image = $faker->imageUrl(250, 250);
+            $post->slug = Str::slug($post->title, '-');
             $post->category_id = Arr::random($category_ids);
 
             $post->save();

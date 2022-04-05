@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendNewMail;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 
 
@@ -71,6 +72,8 @@ class PostController extends Controller
         }
         $post->fill($data);
         $post->user_id = Auth::id();
+        $post->slug = Str::slug($post->title, '-');
+
         $post->save();
 
         //Con attach() creo effettivamente la relazione se mi arriva la chiave con i tags
@@ -136,6 +139,7 @@ class PostController extends Controller
             //Riassegno image in $data (che mi arriva in $request), e gli assegno l'url fatto prima che è una
             $data['image'] = $image_url;
         }
+        $post->slug = Str::slug($post->title, '-');
 
         $post->update($data);
         if (array_key_exists('tags', $data)) $post->tags()->sync($data['tags']);
