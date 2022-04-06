@@ -22,6 +22,7 @@
                             <th scope="col">Autore</th>
                             <th scope="col">Tags</th>
                             <th scope="col">Stato</th>
+                            <th scope="col">Aggiornato il</th>
                             <th scope="col">Azioni</th>
                         </tr>
                     </thead>
@@ -69,6 +70,7 @@
                                         </button>
                                     </form>
                                 </td>
+                                <td>{{ $post->getUpdatedAt() }}</td>
                                 <td><a class="btn btn-primary"
                                         href="{{ route('admin.posts.show', $post->id) }}">Dettaglio</a></td>
                                 <td><a class="btn btn-warning"
