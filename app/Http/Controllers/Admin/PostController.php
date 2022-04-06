@@ -88,7 +88,7 @@ class PostController extends Controller
         $reciever = Auth::user()->email;
 
         //Nelle parentesi del to() dovrei mettere $reciever
-        Mail::to('new@new.com')->send(new SendNewMail($post));
+        Mail::to($reciever)->send(new SendNewMail($post));
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
