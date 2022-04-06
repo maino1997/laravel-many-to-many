@@ -102,6 +102,9 @@
                 <a href="{{ route('admin.posts.order') }}">Visualizza i post per Categoria</a>
             </div>
         </div>
+        @if ($posts->hasPages())
+            {{ $posts->links() }}
+        @endif
     </div>
 @endsection
 
