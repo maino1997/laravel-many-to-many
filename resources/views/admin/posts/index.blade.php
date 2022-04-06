@@ -4,7 +4,7 @@
     @include('includes.alert')
     <div class="container text-center">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col">
                 <header>
                     <h1>I miei post:</h1>
                 </header>
@@ -31,7 +31,7 @@
                                 <th scope="row">{{ $post->id }}</th>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->content }}</td>
-                                <td><img src="{{ asset("storage/$post->image") }}" alt="{{ $post->image }}" width='100'
+                                <td><img src="{{ asset("storage/$post->image") }}" alt="thumb" width='100'
                                         class='img-fluid'>
                                 </td>
                                 <td>
