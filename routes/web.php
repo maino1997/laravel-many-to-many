@@ -25,6 +25,7 @@ Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->
     Route::patch('/posts/{post}/toggle', 'PostController@toggle')->name('posts.toggle');
     Route::resource('posts', 'PostController');
     Route::resource('categories', 'CategoryController');
+    Route::get('/tags/{tag}/posts', 'TagController@posts')->name('tags.posts');
     Route::resource('tags', 'TagController');
 });
 

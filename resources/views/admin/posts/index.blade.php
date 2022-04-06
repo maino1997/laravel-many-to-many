@@ -51,7 +51,7 @@
                                 </td>
                                 <td>
                                     @foreach ($post->tags as $tag)
-                                        <a href="{{ route('admin.tags.show', $tag->id) }}">
+                                        <a href="{{ route('admin.tags.posts', $tag->id) }}">
                                             <span
                                                 class="badge badge-pill badge-{{ $tag->color }}">{{ $tag->name }}</span>
                                         </a>
