@@ -28,8 +28,10 @@ class Post extends Model
         return $this->belongsToMany('App\Models\Tag');
     }
 
-    public function getUpdatedAt()
+
+
+    public function getFormattedDate($date, $format = 'd-m-Y H:i:s')
     {
-        return Carbon::create($this->updated_at)->format('d-m-Y');
+        return Carbon::create($this->$date)->format($format);
     }
 }

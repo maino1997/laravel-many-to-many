@@ -70,7 +70,7 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td>{{ $post->getUpdatedAt() }}</td>
+                                <td>{{ $post->getFormattedDate('updated_at', 'd-m-Y') }}</td>
                                 <td><a class="btn btn-primary"
                                         href="{{ route('admin.posts.show', $post->id) }}">Dettaglio</a></td>
                                 <td><a class="btn btn-warning"
